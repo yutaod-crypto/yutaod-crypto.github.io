@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yutao Deng — AI & Robotics Engineer</title>
+  <style>
+    :root {
+      --bg:      #0a0e1a;
+      --bg2:     #111827;
+      --card:    #1a2235;
+      --accent:  #4f8ef7;
+      --accent2: #7c3aed;
+      --text:    #e2e8f0;
+      --muted:   #94a3b8;
+      --border:  #1e2d45;
+      --tag-bg:  #1e3a5f;
+      --tag-txt: #93c5fd;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(10,14,26,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 1.05rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+    @media (max-width: 500px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 1.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 0%,  rgba(79,142,247,.13) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 40% at 80% 85%, rgba(124,58,237,.09) 0%, transparent 60%);
+    }
+    .hero-content { position: relative; max-width: 680px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(79,142,247,.1); border: 1px solid rgba(79,142,247,.3);
+      color: var(--accent); font-size: 0.75rem; letter-spacing: .12em;
+      text-transform: uppercase; padding: .3rem .9rem; border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem,6vw,3.8rem); font-weight: 800; line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 520px; margin: 0 auto 2.5rem; }
+    .hero-btns { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: .7rem 1.6rem; border-radius: 8px; font-size: .9rem; font-weight: 600;
+      text-decoration: none; transition: all .2s; display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none;
+    }
+    .btn-primary:hover { opacity: .87; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--text); border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* ── SECTION SHELL ── */
+    section { padding: 5rem 1.5rem; }
+    .inner { max-width: 1100px; margin: 0 auto; }
+    .s-label {
+      font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .4rem;
+    }
+    .s-title { font-size: clamp(1.55rem,3vw,2.1rem); font-weight: 700; margin-bottom: .85rem; }
+    .s-sub { color: var(--muted); max-width: 540px; margin-bottom: 3rem; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-text p { color: var(--muted); margin-bottom: .9rem; font-size: .95rem; }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.4rem 1.5rem; margin-bottom: .9rem;
+    }
+    .edu-card h4 { font-size: .97rem; font-weight: 700; }
+    .edu-card .deg { color: var(--accent); font-size: .85rem; margin: .2rem 0; }
+    .edu-card .meta { color: var(--muted); font-size: .8rem; }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.4rem;
+    }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.65rem; display: flex; flex-direction: column; gap: .85rem;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity .2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(79,142,247,.35);
+      box-shadow: 0 14px 36px rgba(0,0,0,.45);
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+    .project-icon { font-size: 1.55rem; line-height: 1; flex-shrink: 0; }
+    .gh-link {
+      display: inline-flex; align-items: center; gap: .3rem;
+      color: var(--muted); text-decoration: none; font-size: .78rem;
+      padding: .28rem .6rem; border: 1px solid var(--border); border-radius: 6px;
+      transition: all .2s; white-space: nowrap;
+    }
+    .gh-link:hover { color: var(--accent); border-color: var(--accent); }
+    .project-title { font-size: 1rem; font-weight: 700; line-height: 1.35; }
+    .badge {
+      display: inline-block; font-size: .7rem; padding: .12rem .5rem;
+      border-radius: 999px; margin-left: .4rem; vertical-align: middle;
+    }
+    .ongoing  { background: rgba(74,222,128,.1);  color: #4ade80; border: 1px solid rgba(74,222,128,.25); }
+    .done     { background: rgba(148,163,184,.1); color: var(--muted); border: 1px solid rgba(148,163,184,.2); }
+    .project-desc { color: var(--muted); font-size: .86rem; line-height: 1.65; flex: 1; }
+    .tags { display: flex; flex-wrap: wrap; gap: .38rem; margin-top: auto; }
+    .tag {
+      background: var(--tag-bg); color: var(--tag-txt);
+      font-size: .73rem; padding: .18rem .55rem; border-radius: 4px; font-weight: 500;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg2); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.3rem; }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem;
+    }
+    .skill-group h4 {
+      font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .9rem;
+    }
+    .pill-list { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .pill {
+      background: rgba(79,142,247,.07); border: 1px solid rgba(79,142,247,.14);
+      color: var(--text); font-size: .81rem; padding: .27rem .7rem; border-radius: 999px;
+    }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 3rem 2rem; text-align: center; max-width: 580px; margin: 0 auto;
+    }
+    .contact-box h3 { font-size: 1.45rem; margin-bottom: .7rem; }
+    .contact-box p { color: var(--muted); margin-bottom: 2rem; font-size: .95rem; }
+    .contact-links { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem; text-align: center; color: var(--muted); font-size: .82rem;
+    }
+
+    /* GitHub SVG */
+    .gh-icon { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">Yutao Deng</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">AI Engineering &amp; Robotics</div>
+    <h1>Hi, I'm <span>Yutao Deng</span></h1>
+    <p>
+      MS student at Carnegie Mellon building intelligent systems at the intersection of
+      vision-language models, robotic manipulation, and autonomous control.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/yud0ng" target="_blank" rel="noopener" class="btn btn-outline">
+        <svg class="gh-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:yutaod@andrew.cmu.edu" class="btn btn-outline">Contact</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="inner">
+    <div class="s-label">Background</div>
+    <div class="s-title">About Me</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a robotics and AI engineer passionate about making machines that can see, reason,
+          and act in the physical world. My work spans knowledge distillation of large vision-language
+          models, egocentric robot learning, and autonomous navigation systems.
+        </p>
+        <p>
+          Previously a Research Assistant at UC San Diego's Living Matter Lab, where I built
+          reinforcement-learning controllers for programmable robotic swarms. I also interned at
+          GLBL Foundation developing predictive models for solar water filtration systems.
+        </p>
+        <p>
+          Currently pursuing my M.S. in AI Engineering (Robotics &amp; Control) at Carnegie Mellon,
+          with coursework in machine learning, reinforcement learning, and computer vision.
+        </p>
+      </div>
+      <div>
+        <div class="edu-card">
+          <h4>Carnegie Mellon University</h4>
+          <div class="deg">M.S. AI Engineering — Mechanical Engineering (Robotics &amp; Control)</div>
+          <div class="meta">Pittsburgh, PA &nbsp;·&nbsp; Aug 2025 – Dec 2026</div>
+        </div>
+        <div class="edu-card">
+          <h4>University of California San Diego</h4>
+          <div class="deg">B.S. Mechanical Engineering (Robotics &amp; Control)</div>
+          <div class="meta">La Jolla, CA &nbsp;·&nbsp; Sep 2021 – Apr 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="inner">
+    <div class="s-label">Work</div>
+    <div class="s-title">Projects</div>
+    <p class="s-sub">Research and engineering projects spanning vision-language models, robotic manipulation, and autonomous systems.</p>
+
+    <div class="projects-grid">
+
+      <!-- 1. Qwen3-VL Distillation -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🧠</div>
+          <a class="gh-link" href="https://github.com/yud0ng/Qwen3_VL_Distill" target="_blank" rel="noopener">
+            <svg class="gh-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+        <div class="project-title">
+          Qwen3-VL Knowledge Distillation for Spatial Reasoning
+          <span class="badge ongoing">Ongoing</span>
+        </div>
+        <p class="project-desc">
+          Multi-stage knowledge distillation pipeline transferring spatial reasoning from a 32B vision-language
+          teacher to a 2B student model. Implements Response SFT, Chain-of-Thought supervision, and Logit KL
+          divergence. Built a 50k+ sample teacher dataset with confidence filtering and spatial reasoning keyword
+          gating. LoRA ablation studies (r=16, r=64) evaluated on MME, MMStar, and CV-Bench with
+          L1/L2/L3 spatial reasoning breakdown.
+        </p>
+        <div class="tags">
+          <span class="tag">Knowledge Distillation</span>
+          <span class="tag">VLM</span>
+          <span class="tag">LoRA</span>
+          <span class="tag">CoT</span>
+          <span class="tag">Qwen3-VL</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <!-- 2. GraspGeom -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🤖</div>
+          <a class="gh-link" href="https://github.com/yud0ng/GraspGeom" target="_blank" rel="noopener">
+            <svg class="gh-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+        <div class="project-title">
+          GraspGeom: Egocentric Grasp Affordance Analysis
+          <span class="badge ongoing">Ongoing</span>
+        </div>
+        <p class="project-desc">
+          Computer vision pipeline for extracting grasp affordances from egocentric video to feed robotic
+          manipulation policies. Uses Qwen3-VL-2B to detect the precise frame of first hand-object contact,
+          MoGe2 monocular depth estimation, and SAM3 text-prompted segmentation to produce per-frame 3D point clouds,
+          oriented bounding boxes, principal axes, and candidate contact points — all serialized as structured JSON
+          for downstream robot learning.
+        </p>
+        <div class="tags">
+          <span class="tag">Egocentric Video</span>
+          <span class="tag">Qwen3-VL</span>
+          <span class="tag">SAM</span>
+          <span class="tag">Depth Estimation</span>
+          <span class="tag">Point Cloud</span>
+          <span class="tag">Robot Manipulation</span>
+        </div>
+      </div>
+
+      <!-- 3. 3D Blackboard -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🖊️</div>
+          <a class="gh-link" href="https://github.com/yud0ng/3d_blackboard_project" target="_blank" rel="noopener">
+            <svg class="gh-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+        <div class="project-title">
+          3D Blackboard
+          <span class="badge ongoing">Ongoing</span>
+        </div>
+        <p class="project-desc">
+          Interactive 3D spatial annotation and drawing system. Enables users to sketch, label, and annotate
+          in three-dimensional space, with applications in robotics scene understanding, spatial data labeling,
+          and human-computer interaction research.
+        </p>
+        <div class="tags">
+          <span class="tag">3D Visualization</span>
+          <span class="tag">Spatial Computing</span>
+          <span class="tag">HCI</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <!-- 4. SmolVLA + LeRobot -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🦾</div>
+          <div></div>
+        </div>
+        <div class="project-title">
+          Egocentric Demo Alignment for Robot Learning
+          <span class="badge ongoing">Ongoing</span>
+        </div>
+        <p class="project-desc">
+          Pipeline that converts egocentric human demonstrations into structured robot action trajectories for
+          manipulation policies. Fine-tuned SmolVLA via behavior cloning to map visual observations to
+          end-effector actions. Extracted hand trajectories and interaction events from video, then constructed
+          training datasets through segmentation, temporal synchronization, and smoothing.
+        </p>
+        <div class="tags">
+          <span class="tag">Imitation Learning</span>
+          <span class="tag">SmolVLA</span>
+          <span class="tag">LeRobot</span>
+          <span class="tag">Behavior Cloning</span>
+          <span class="tag">Egocentric Video</span>
+        </div>
+      </div>
+
+      <!-- 5. Autonomous Vehicle -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🚗</div>
+          <div></div>
+        </div>
+        <div class="project-title">
+          Autonomous Vehicle — Hand Signal Recognition
+          <span class="badge done">Completed</span>
+        </div>
+        <p class="project-desc">
+          Real-time hand gesture recognition system for autonomous vehicle navigation on a Jetson Nano.
+          Trained a classification model with TensorFlow and Roboflow on a GPU cluster, then integrated it
+          into a live navigation pipeline using OpenCV with LiDAR-camera sensor fusion for robust
+          scene understanding.
+        </p>
+        <div class="tags">
+          <span class="tag">TensorFlow</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Jetson Nano</span>
+          <span class="tag">LiDAR</span>
+          <span class="tag">Sensor Fusion</span>
+        </div>
+      </div>
+
+      <!-- 6. Triton UAS -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">✈️</div>
+          <div></div>
+        </div>
+        <div class="project-title">
+          Unmanned Aerial System — Triton UAS
+          <span class="badge done">Completed</span>
+        </div>
+        <p class="project-desc">
+          Designed and built a fixed-wing UAV optimized for flight endurance and stability using MATLAB
+          simulation models. Implemented autonomous waypoint navigation and onboard visual sign recognition.
+          Validated machine learning and control performance through full hardware prototype flight testing.
+        </p>
+        <div class="tags">
+          <span class="tag">MATLAB</span>
+          <span class="tag">Autonomous Navigation</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">UAV Design</span>
+          <span class="tag">Control Systems</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="inner">
+    <div class="s-label">Expertise</div>
+    <div class="s-title">Technical Skills</div>
+    <p class="s-sub">Tools and technologies across AI research, robotics, and embedded systems.</p>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="pill-list">
+          <span class="pill">Python</span>
+          <span class="pill">MATLAB</span>
+          <span class="pill">Shell / Bash</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>ML &amp; Vision</h4>
+        <div class="pill-list">
+          <span class="pill">PyTorch</span>
+          <span class="pill">TensorFlow</span>
+          <span class="pill">OpenCV</span>
+          <span class="pill">Transformers</span>
+          <span class="pill">LoRA / PEFT</span>
+          <span class="pill">Roboflow</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Robotics &amp; Control</h4>
+        <div class="pill-list">
+          <span class="pill">Reinforcement Learning</span>
+          <span class="pill">Behavior Cloning</span>
+          <span class="pill">Control Systems</span>
+          <span class="pill">LeRobot</span>
+          <span class="pill">Swarm Robotics</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Hardware &amp; CAD</h4>
+        <div class="pill-list">
+          <span class="pill">Jetson Nano</span>
+          <span class="pill">SolidWorks</span>
+          <span class="pill">Fusion 360</span>
+          <span class="pill">3D Printing</span>
+          <span class="pill">LiDAR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-box">
+      <h3>Let's Connect</h3>
+      <p>Open to research collaborations, internship opportunities, or just talking about robots and AI.</p>
+      <div class="contact-links">
+        <a href="mailto:yutaod@andrew.cmu.edu" class="btn btn-primary">yutaod@andrew.cmu.edu</a>
+        <a href="https://github.com/yud0ng" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg class="gh-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 Yutao Deng</p>
+</footer>
+
+</body>
+</html>
